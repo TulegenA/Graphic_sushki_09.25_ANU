@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Сводная таблица пуска печей</title>
+<style>
+  :root {
+    --bg: #0f172a;          /* slate-900 */
+    --card: #111827;        /* gray-900 */
+    --muted: #94a3b8;       /* slate-400 */
+    --text: #e5e7eb;        /* gray-200 */
+    --accent: #22d3ee;      /* cyan-400 */
+    --ok: #34d399;          /* emerald-400 */
+    --warn: #f59e0b;        /* amber-500 */
+    --border: #1f2937;      /* gray-800 */
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background: linear-gradient(180deg, #0b1220, #0f172a);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+    padding: 12px;
+  }
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+  }
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .title .dot {
+    width: 10px; height: 10px; border-radius: 9999px;
+    background: var(--accent);
+    box-shadow: 0 0 18px var(--accent);
+  }
+  .desc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .b { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .c-accent { background: var(--accent); }
+  .c-ok { background: var(--ok); }
+  .c-warn { background: var(--warn); }
+
+  /* Cards list (mobile-first) */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+  .card h3 {
+    margin: 0 0 6px 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .meta div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 13px;
+    padding: 8px;
+    border-top: 1px dashed var(--border);
+  }
+  .row strong { color: var(--text); }
+  .row span { color: var(--muted); }
+  .final {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
+    font-weight: 700;
+  }
+  .badge {
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    background: rgba(34, 211, 238, 0.15);
+    border: 1px solid rgba(34,211,238,0.45);
+    color: var(--accent);
+  }
+  .ok {
+    background: rgba(52, 211, 153, 0.15);
+    border-color: rgba(52,211,153,0.45);
+    color: var(--ok);
+  }
+  .foot {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    margin: 14px 0 4px;
+  }
+
+  /* Wider screens: present compact table-like grid */
+  @media (min-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="title"><span class="dot"></span>Сводная таблица пуска и выхода печей</div>
+        <div class="desc">Мобильный формат • Все времена даны по местному времени</div>
+      </div>
+      <div class="legend">
+        <span><i class="b c-accent"></i>Нагрев</span>
+        <span><i class="b c-warn"></i>Выдержка</span>
+        <span><i class="b c-ok"></i>Режим</span>
+      </div>
+    </header>
+
+    <div class="grid">
+
+      <!-- Касымова #4 -->
+      <article class="card">
+        <h3>Г9ПО2В #4 — НПС им. Т. Касымова</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 11:47</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 05:47</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 05:47</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 17:47</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 05:47</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 05:47</span></div>
+      </article>
+
+      <!-- Касымова #3 -->
+      <article class="card">
+        <h3>Г9ПО2В #3 — НПС им. Т. Касымова</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 11:50</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 05:50</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 05:50</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 17:50</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 05:50</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 05:50</span></div>
+      </article>
+
+      <!-- Индер #4 -->
+      <article class="card">
+        <h3>Г9ПО2В #4 — НПС «Индер»</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 12:00</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 06:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 06:00</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 18:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 06:00</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 06:00</span></div>
+      </article>
+
+      <!-- Индер #5 -->
+      <article class="card">
+        <h3>Г9ПО2В #5 — НПС «Индер»</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 12:00</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 06:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 06:00</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 18:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 06:00</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 06:00</span></div>
+      </article>
+
+      <!-- Сахарный #4 -->
+      <article class="card">
+        <h3>Г9ПО2В #4 — СПН «Сахарный»</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 11:09</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 05:09</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 05:09</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 17:09</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 05:09</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 05:09</span></div>
+      </article>
+
+      <!-- Сахарный #5 -->
+      <article class="card">
+        <h3>Г9ПО2В #5 — СПН «Сахарный»</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 11:07</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 05:07</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 05:07</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 17:07</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 05:07</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 05:07</span></div>
+      </article>
+
+      <!-- Большой Чаган #5 -->
+      <article class="card">
+        <h3>Г9ПО2В #5 — НПС «Большой Чаган»</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 12:00</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 06:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 06:00</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 18:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 06:00</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 06:00</span></div>
+      </article>
+
+      <!-- Большой Чаган БТП-10М-Э #6 -->
+      <article class="card">
+        <h3>БТП-10М-Э #6 — НПС «Большой Чаган»</h3>
+        <div class="meta">
+          <div>Пуск: <strong>22.09.25 17:00</strong></div>
+          <div class="badge">2 сут. 18 ч до режима</div>
+        </div>
+        <div class="row"><span>↗️ 200 °C</span><strong>23.09.25 11:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 200 °C</span><strong>24.09.25 11:00</strong></div>
+        <div class="row"><span>↗️ 500 °C</span><strong>24.09.25 23:00</strong></div>
+        <div class="row"><span>⏸ Конец выдержки 500 °C</span><strong>25.09.25 11:00</strong></div>
+        <div class="final"><span>✅ Режим</span><span class="badge ok">25.09.25 11:00</span></div>
+      </article>
+
+    </div>
+
+    <div class="foot">Основано на регламенте: 10 °C/ч → 200 °C (выдержка 24 ч), затем 25 °C/ч → 500 °C (выдержка 12 ч).</div>
+  </div>
+</body>
+</html>
